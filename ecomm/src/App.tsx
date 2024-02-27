@@ -1,70 +1,106 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
-import { Products } from './utils'
-import CaterogryTemplate from './components/CaterogryTemplate'
-import Home from './components/Home'
-import Navbar from './components/Navbar'
-import Search from './components/Search'
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Products } from "./ts/utils";
+import CaterogryTemplate from "./components/CaterogryTemplate";
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
+import Search from "./components/Search";
+import SigninPage from "./components/SigninPage";
 
 function App() {
-  const storageCartString = localStorage.getItem('cart');
+  const storageCartString = localStorage.getItem("cart");
   const storageCart = storageCartString ? JSON.parse(storageCartString) : null;
 
-  const [cart, setCart] = useState<Products[]>(storageCart || [])
+  const [cart, setCart] = useState<Products[]>(storageCart || []);
   const [already, setAlready] = useState<boolean>(false);
   const [added, setAdded] = useState<boolean>(false);
 
-  function addCart(item: Products){
-    const already = cart.find((cartItem) => cartItem.id === item.id)
-    if(already) {
-      setAlready(true)
-      setTimeout(() => { setAlready(false) }, 1000)
-      return
-    };
+  function addCart(item: Products) {
+    const already = cart.find((cartItem) => cartItem.id === item.id);
+    if (already) {
+      setAlready(true);
+      setTimeout(() => {
+        setAlready(false);
+      }, 1000);
+      return;
+    }
 
-    setCart((prevCart) => [...prevCart, {...item, quanity: 1}])
-    setAdded(true)
-    setTimeout(() => { setAdded(false) }, 1000)
-
-    localStorage.setItem('cart', JSON.stringify([...cart, {...item, quanity: 1}]))
+    setCart((prevCart) => [...prevCart, { ...item, quanity: 1 }]);
+    setAdded(true);
+    setTimeout(() => {
+      setAdded(false);
+    }, 1000);
   }
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <BrowserRouter>
-      <Navbar 
+      <Navbar
         cart={cart}
         setCart={setCart}
-        length={cart.length} 
-        added={added} 
+        length={cart.length}
+        added={added}
         already={already}
       />
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path="/" element={<Home />} />
 
-        <Route path='/products/Technology' element={
-          <CaterogryTemplate imgSrc='technology' category='Technology' title='Technology'
-            addCart={addCart}
-          />
-        }/>
+        <Route
+          path="/products/Technology"
+          element={
+            <CaterogryTemplate
+              imgSrc="technology"
+              category="Technology"
+              title="Technology"
+              addCart={addCart}
+            />
+          }
+        />
 
-        <Route path="/products/Men's Clothes" element={
-          <CaterogryTemplate imgSrc='mensclothes' category="Men's-Clothes" title="Men's Clothes" addCart={addCart}/>
-        }/>
+        <Route
+          path="/products/Men's Clothes"
+          element={
+            <CaterogryTemplate
+              imgSrc="mensclothes"
+              category="Men's-Clothes"
+              title="Men's Clothes"
+              addCart={addCart}
+            />
+          }
+        />
 
-        <Route path="/products/Women's Clothes" element={
-          <CaterogryTemplate imgSrc='womenclothes' category="Women's-Clothes" title="Women's Clothes" addCart={addCart}/>
-        }/>
+        <Route
+          path="/products/Women's Clothes"
+          element={
+            <CaterogryTemplate
+              imgSrc="womenclothes"
+              category="Women's-Clothes"
+              title="Women's Clothes"
+              addCart={addCart}
+            />
+          }
+        />
 
-        <Route path='/products/Jewerly' element={
-          <CaterogryTemplate imgSrc='jewelry' category="Jewerly" title="Jewerly" addCart={addCart}/>
-        }/>
+        <Route
+          path="/products/Jewerly"
+          element={
+            <CaterogryTemplate
+              imgSrc="jewelry"
+              category="Jewerly"
+              title="Jewerly"
+              addCart={addCart}
+            />
+          }
+        />
 
-        <Route path='/browse' element={<Search addCart={addCart}/>}/>
-
+        <Route path="/browse" element={<Search addCart={addCart} />} />
+        <Route path="/signin" element={<SigninPage />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
