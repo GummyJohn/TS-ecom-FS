@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
     { username: findUser.username, userId: findUser.userId, role: findUser.role},
     process.env.SECRET_KEY
   )
-    
+
   res.cookie('token', accessToken, {
     httpOnly: true,
     expires: new Date(Date.now() + (24 * 60 * 60 * 1000))

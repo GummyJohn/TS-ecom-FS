@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { RoleContext } from '../roleContext'
 import { useNavigate } from 'react-router-dom'
-import { FaChevronLeft } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import NewItem from '../components/NewItem'
 
 interface ShowcaseProps{
   title: string;
@@ -36,6 +37,7 @@ const showcaseInfo = [
 
 const Showcase = ({title, subText, path}: ShowcaseProps) => {
   const navigate = useNavigate();
+
   return (
     <div className='text-center'>
       <div className='text-7xl mb-5'>{title}</div>
@@ -50,7 +52,11 @@ const Showcase = ({title, subText, path}: ShowcaseProps) => {
 }
 
 const Home = () => {
+  console.log('home rendered')
+  const navigate = useNavigate();
+  const { role, authenticate } = useContext(RoleContext)
   const [imgIndex, setImgIndex] = useState<number>(0)
+  const [data, setData] = useState({})
 
   const bgStyle = {
     backgroundImage : `url(${showcaseInfo[imgIndex].img})`,
@@ -102,9 +108,38 @@ const Home = () => {
         </div>
       </div>
 
-      <div>
-        
-      </div>
+      {
+        role === null && (
+        <div className='h-[40vh] text-center flex justify-center items-center'>
+          <div 
+            style={{boxShadow: '0px 0px 50px 10px'}}
+            className='border p-4 w-[90%] rounded-3xl shadow-2xl shadow-black'
+          >
+            <p className='text-3xl mb-7'>Welcome Guest to ShopNest!</p>
+            <p className='text-xl w-[80%] m-auto text-center mb-7'>
+              Explore a premier destination where cutting-edge technology, the latest in men's and women's fashion, and exquisite jewelry of unparalleled quality converge, offering a comprehensive shopping experience like no other!
+            </p>
+            <p className='text-xl w-[80%] m-auto text-center mb-7'>
+              Embark on an unparalleled shopping journey with us! Register an account to unlock exclusive access to the latest products and ensure you never miss out on exciting updates. Don't settle for being a guest when you can elevate your experience with us!
+            </p>
+            <button 
+              onClick={() => navigate('/signin')}
+              className='border py-2 px-4 rounded-2xl border-black hover:bg-black hover:text-white'
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+        )
+      }
+      { 
+        role !== null && (
+          <div className='h-[40vh]'>
+            <div>Welcome User : {role.user}</div> 
+            <NewItem/>
+          </div>
+        )
+      }      
     </>
   )
 }

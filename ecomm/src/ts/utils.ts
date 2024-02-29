@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export interface Products{
   id:number;
   title: string;
@@ -16,11 +18,10 @@ export async function getData(
 ){
   try{
     setLoading(true)
-    const response = await fetch(url);
-    if(response.ok){
-      const data = await response.json();
-      setState(data);
-      setLoading(false);
+    const response = await axios.get(url)
+    if(response.status === 200){
+      setState(response.data)
+      setLoading(false)
     }
   }catch(err){
     setError(true)

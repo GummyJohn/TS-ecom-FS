@@ -2,6 +2,7 @@ import { useState, useReducer, FormEvent, ChangeEvent } from 'react'
 import { FaCheck, FaTimes} from 'react-icons/fa'
 import { ACTIONS, controls, registerReduce } from '../ts/registerReducer'
 import { motion, AnimatePresence } from 'framer-motion'
+import axios from 'axios'
 
 interface RegisterFromProps{
   setShowSignIn: (show: boolean) => void;
@@ -51,16 +52,10 @@ const RegisterFrom = ({setShowSignIn} : RegisterFromProps) => {
     e.preventDefault();
 
     try{
-      const response = await fetch('http://localhost:4001/register', {
-        method: 'POST',
-        headers:{
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({
-          username: formValues.username,
-          email: formValues.email,
-          password: formValues.password
-        })
+      const response = await axios.post('http://localhost:4001/register',{
+        username: formValues.username,
+        email: formValues.email,
+        password: formValues.password
       })
 
       if(response.status === 404){

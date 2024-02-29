@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Products } from "../ts/utils";
+import { RoleContext } from "../roleContext";
 import Cart from "./Cart";
 
 interface NavbarProp {
@@ -15,6 +16,7 @@ interface NavbarProp {
 
 const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
   const navigate = useNavigate();
+  const { role, handleSignout } = useContext(RoleContext)
   const [showCart, setShowCart] = useState<boolean>(false);
 
   return (
@@ -35,12 +37,29 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
           >
             Browse
           </button>
-          <button
-            onClick={() => navigate("/signin")}
-            className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
-          >
-            Sign In
-          </button>
+
+          {
+            role === null && (
+              <button
+                onClick={() => navigate("/signin")}
+                className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
+              >
+                Sign In
+              </button> 
+            )
+          }
+          {
+            role !== null && (
+              <button
+                onClick={handleSignout}
+                className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
+              >
+                Sign Out
+              </button> 
+            )
+          }
+         
+
           <button
             onClick={() => setShowCart(true)}
             className="border border-black p-3 rounded-full hover:border-blue-500 hover:text-blue-500 flex items-center "

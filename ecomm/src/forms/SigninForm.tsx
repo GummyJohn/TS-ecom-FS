@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 interface SignInFromProps{
   setShowSignIn: (show: boolean) => void;
@@ -17,18 +18,21 @@ const SignInForm = ({setShowSignIn} : SignInFromProps) => {
   async function handleSubmit(e : FormEvent<HTMLFormElement>){
     e.preventDefault();
 
+    const config = {
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      withCredentials: true
+    }
+
     try{
-      const response = await fetch('http://localhost:4001/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({
+      const response = await axios.post('http://localhost:4001/signin',
+        {
           username,
           password
-        }),
-        credentials: 'include'
-      })
+        }, 
+        config
+      )
 
       if(response.status === 404){
         setWrongUser(true)
@@ -46,7 +50,7 @@ const SignInForm = ({setShowSignIn} : SignInFromProps) => {
 
     }catch(err: unknown){
       if(err instanceof Error){
-        console.log()
+        console.log(err.message)
       }
     }
   }
