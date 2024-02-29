@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import SigninPage from "./components/SigninPage";
+import AddProductForm from "./forms/AddProductForm";
 
 function App() {
   const storageCartString = localStorage.getItem("cart");
@@ -49,55 +50,56 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route
-          path="/products/Technology"
+          path="/products/technology"
           element={
             <CaterogryTemplate
-              imgSrc="technology"
-              category="Technology"
-              title="Technology"
-              addCart={addCart}
+            imgSrc="technology"
+            category="technology"
+            title="Technology"
+            addCart={addCart}
             />
           }
         />
 
         <Route
-          path="/products/Men's Clothes"
+          path="/products/men's Clothes"
           element={
             <CaterogryTemplate
-              imgSrc="mensclothes"
-              category="Men's-Clothes"
-              title="Men's Clothes"
-              addCart={addCart}
+            imgSrc="mensclothes"
+            category="men's-clothes"
+            title="Men's Clothes"
+            addCart={addCart}
             />
           }
         />
 
         <Route
-          path="/products/Women's Clothes"
+          path="/products/women's Clothes"
           element={
             <CaterogryTemplate
-              imgSrc="womenclothes"
-              category="Women's-Clothes"
-              title="Women's Clothes"
-              addCart={addCart}
+            imgSrc="womenclothes"
+            category="women's-clothes"
+            title="Women's Clothes"
+            addCart={addCart}
             />
           }
         />
 
         <Route
-          path="/products/Jewerly"
+          path="/products/jewerly"
           element={
             <CaterogryTemplate
-              imgSrc="jewelry"
-              category="Jewerly"
-              title="Jewerly"
-              addCart={addCart}
+            imgSrc="jewelry"
+            category="jewerly"
+            title="Jewerly"
+            addCart={addCart}
             />
           }
         />
 
         <Route path="/browse" element={<Search addCart={addCart} />} />
         <Route path="/signin" element={<SigninPage />} />
+        <Route path="/addproduct" element={<AddProductForm />}/>
       </Routes>
     </BrowserRouter>
   );

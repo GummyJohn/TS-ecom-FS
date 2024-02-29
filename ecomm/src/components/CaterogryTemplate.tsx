@@ -1,7 +1,8 @@
-import { useEffect, useState, FC } from "react";
+import { useEffect, useState } from "react";
 import { getData, Products } from "../ts/utils";
 import Card from "./Card";
 import Loading from "./Loading";
+import axios from 'axios'
 
 interface TemplateProps {
   title?: string;
@@ -20,6 +21,8 @@ const CaterogryTemplate = ({
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
+  console.log(data);
+
   const bgImg = {
     backgroundImage: `url(../src/images/${imgSrc}BG.jpg)`,
     backgroundPosition: "center",
@@ -28,12 +31,20 @@ const CaterogryTemplate = ({
   };
 
   useEffect(() => {
-    getData(
-      `http://localhost:4000/products/${category}`,
-      setData,
-      setError,
-      setLoading
-    );
+    async function getData(){
+      try{
+        setLoading(true)
+        const response = await axios.get(`http://localhost:4001/products/${category}`)
+        if(response.status === 200){
+          setData(response.data)
+          setLoading(false)
+        }
+      }catch(err){
+        setError(true)
+      }
+    }
+
+    getData()
   }, []);
 
   return (
@@ -56,8 +67,8 @@ const CaterogryTemplate = ({
           <Loading />
         ) : (
           <div className="flex flex-wrap justify-evenly my-4">
-            {data &&
-              data.map((product) => {
+            {data && data.map((product) => {
+                console.log(product)
                 return (
                   <Card
                     key={product.id}

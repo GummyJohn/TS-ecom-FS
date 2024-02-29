@@ -1,4 +1,5 @@
 const products = require('../db/dbProducts.json');
+const newItem = require('../db/newestItem.json');
 const express = require('express');
 const router = express.Router();
 
@@ -6,28 +7,32 @@ router.get('/all', (req, res) => {
   res.json(products);
 })
 
-router.get('/Technology', (req, res) => {
-  const filtered = products.filter((product) => product.category === 'techonology')
+router.get('/technology', (req, res) => {
+  const filtered = products.filter((product) => product.category === 'technology')
 
   res.json(filtered);
 })
 
-router.get('/Jewerly', (req, res) => {
+router.get('/jewerly', (req, res) => {
   const filtered = products.filter((product) => product.category === 'jewelery')
 
   res.json(filtered);
 })
 
-router.get("/Men's-Clothes", (req, res) => {
+router.get("/men's-clothes", (req, res) => {
   const filtered = products.filter((product) => product.category === "men's clothing")
 
   res.json(filtered);
 })
 
-router.get("/Women's-Clothes", (req, res) => {
+router.get("/women's-clothes", (req, res) => {
   const filtered = products.filter((product) => product.category === "women's clothing")
 
   res.json(filtered);
+})
+
+router.get('/newItem', (req, res) => {
+  res.json(newItem)
 })
 
 module.exports = router;
