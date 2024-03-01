@@ -41,7 +41,10 @@ const CartItem = ({ list, setCart, cartItem, id }: CartItemProps) => {
   return (
     <div className="flex items-center ">
       <div className="w-[50%] h-[200px] p-3">
-        <img src={cartItem.image} alt="" className="w-full h-full" />
+        <img src={cartItem.image.includes('http') ? cartItem.image : `../../src/images/productImages/${cartItem.image}`} 
+          alt="cart item" 
+          className="w-full h-full" 
+        />
       </div>
 
       <div className="w-[50%] text-center flex justify-center flex-col items-center">

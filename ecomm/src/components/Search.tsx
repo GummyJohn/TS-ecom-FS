@@ -211,6 +211,7 @@ const Search = ({ addCart }: SearchProps) => {
             {filteredData.map((product) => {
               return (
                 <Card
+                  id={product.id}
                   key={product.id}
                   img={product.image}
                   title={product.title}

@@ -71,6 +71,7 @@ const CaterogryTemplate = ({
                 console.log(product)
                 return (
                   <Card
+                    id={product.id}
                     key={product.id}
                     img={product.image}
                     title={product.title}

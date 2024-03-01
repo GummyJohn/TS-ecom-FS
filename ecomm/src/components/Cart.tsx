@@ -17,11 +17,11 @@ const Cart = ({ setShowCart, cart, setCart }: CartProps) => {
     .toFixed(2);
 
   return (
-    <div className="absolute h-full w-full z-50">
+    <div className="absolute h-full w-full z-50 bg-black h-screen top-0 bg-opacity-60">
       <motion.div
         initial={{ x: "+100vw" }}
         animate={{ x: 0 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.5 }}
         exit={{ x: "+100vw" }}
         className="h-screen w-[40%] bg-white fixed z-40 right-0 p-3 fixed top-0"
       >
