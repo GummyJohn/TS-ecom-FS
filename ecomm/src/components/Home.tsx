@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useLayoutEffect } from 'react'
 import { RoleContext } from '../roleContext'
 import { useNavigate } from 'react-router-dom'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -83,6 +83,10 @@ const Home = () => {
     }
   }
 
+  useLayoutEffect(() => {
+    authenticate()
+  }, [])
+
   return (
     <>
       <div style={bgStyle}
@@ -134,9 +138,15 @@ const Home = () => {
       }
       { 
         role !== null && (
-          <div className='h-[40vh]'>
-            <div>Welcome User : {role.user}</div> 
-            <NewItem/>
+          <div 
+            style={{boxShadow: '0px 0px 50px 10px'}}
+            className='h-[40vh] m-auto flex flex-col justify-center items-center mt-5 p-4 w-[90%] rounded-3xl shadow-black r'
+          >
+            <div className='w-full'>
+              <h1 className='text-3xl text-center'>Welcome User : {role.user}</h1> 
+
+              <NewItem/>
+            </div>
           </div>
         )
       }      

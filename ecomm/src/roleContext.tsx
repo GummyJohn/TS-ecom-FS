@@ -54,11 +54,6 @@ export const AuthRoleProvider = ({ children } : {children: ReactNode}) => {
     }
   }
 
-  
-  useEffect(() => {
-    authenticate()
-  }, [])
-
   return (
     <RoleContext.Provider value={{ role, authenticate, handleSignout }}>
       {children}

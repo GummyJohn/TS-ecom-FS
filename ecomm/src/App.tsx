@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import SigninPage from "./components/SigninPage";
 import AddProductForm from "./forms/AddProductForm";
+import UpdateForm from "./forms/UpdateForm";
 
 function App() {
   const storageCartString = localStorage.getItem("cart");
@@ -46,6 +47,7 @@ function App() {
         added={added}
         already={already}
       />
+
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -100,6 +102,7 @@ function App() {
         <Route path="/browse" element={<Search addCart={addCart} />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/addproduct" element={<AddProductForm />}/>
+        <Route path="/updateproduct" element={<UpdateForm />}/>
       </Routes>
     </BrowserRouter>
   );

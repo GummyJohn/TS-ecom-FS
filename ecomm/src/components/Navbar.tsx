@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useLayoutEffect } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -16,11 +16,17 @@ interface NavbarProp {
 
 const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
   const navigate = useNavigate();
-  const { role, handleSignout } = useContext(RoleContext)
+  const { role, handleSignout, authenticate } = useContext(RoleContext)
   const [showCart, setShowCart] = useState<boolean>(false);
 
+  useLayoutEffect(() => {
+    authenticate()
+  }, [])
+
   return (
-    <div className="fixed w-full top-0 bg-white z-30">
+    <div 
+      className={role?.role === 3000 ? " fixed w-full top-0 bg-white   z-30 py-3" : " fixed w-full top-0 bg-white z-30 "}
+    >
       <div className="flex justify-between items-center py-3 px-6">
         <h1 className="text-xl">ShopNest</h1>
 
@@ -59,22 +65,25 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
             )
           }
          
-
-          <button
-            onClick={() => setShowCart(true)}
-            className="border border-black p-3 rounded-full hover:border-blue-500 hover:text-blue-500 flex items-center "
-          >
-            {already && <p className="mr-3">Already in Cart</p>}
-            {added && <p>Added to Cart</p>}
-            <FaCartShopping className="text-3xl" />
-            <p className="ml-1">{length}</p>
-          </button>
+          {
+            role?.role !== 3000 && (
+              <button
+                onClick={() => setShowCart(true)}
+                className="border border-black p-3 rounded-full hover:border-blue-500 hover:text-blue-500 flex items-center "
+              >
+                {already && <p className="mr-3">Already in Cart</p>}
+                {added && <p>Added to Cart</p>}
+                <FaCartShopping className="text-3xl" />
+                <p className="ml-1">{length}</p>
+              </button>
+            )
+          }
         </div>
       </div>
 
       <AnimatePresence>
         {showCart && (
-          <Cart cart={cart} setCart={setCart} setShowCart={setShowCart} />
+            <Cart cart={cart} setCart={setCart} setShowCart={setShowCart} />
         )}
       </AnimatePresence>
     </div>

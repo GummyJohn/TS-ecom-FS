@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react'
 import { Products, getData } from "../ts/utils";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
+const comingSoonBg = {
+  backgroundImage : 'url(../src/images/comingsoon.jpg)',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+}
+
 const NewItem = () => {
-  const [data, setData] = useState<Products | null>(null);
+  const navigate = useNavigate();
+  const [data, setData] = useState<Products | null>();
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -26,23 +35,61 @@ const NewItem = () => {
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error fetching data</p>}
-      {data && (
-        <div className='flex'>
-          <div className='w-[50%] h-[450px]'>
-            <img 
-              src={`../src/images/productImages/${data.image}`}     alt="" 
-              className='w-full h-full'
-            />
-          </div>
+      {!data?.title && (
+        <div
+          className='text-center flex items-center justify-between  w-full m-auto'
+        >
+          <div
+            style={comingSoonBg} 
+            className='w-[50%] h-[300px] rounded-full'
+          ></div>
+
           <div className='w-[50%]'>
-            <h1>{data.title}</h1>
-            <div>
-              <p>{data.category}</p>
-              <p>$ {data.price}</p>
+            <p className='text-3xl mb-5'>
+              Stay Alert New Products coming soon!
+            </p>
+            <p className='text-2xl'>
+              In the mean time check out other products
+            </p>
+            <button
+              onClick={() => navigate('/browse')}
+              className='border py-2 px-4 rounded-2xl border-black hover:bg-black hover:text-white mt-5'
+            >
+              Browse
+            </button>
+          </div>
+        </div>
+      )}
+
+      {data?.title && (
+        <div className='flex flex-col'>
+          <h2 className='text-2xl text-center'>Checkout Our Newest Product!</h2>
+          <div className='flex items-center'>
+            <div className='w-[50%] h-[400px]'>
+              <img 
+                src={`../src/images/productImages/${data.image}`}     alt="" 
+                className='w-full h-full'
+              />
             </div>
-            <p>{data.description}</p>
+
+            <div className='w-[50%] p-3'>
+              <h1 className='text-center text-3xl mb-5'>{data.title}</h1>
+              <div className='flex items-center justify-evenly text-xl mb-5'>
+                <p className=''>
+                  <span className='font-bold'>Category : </span>  
+                  {data.category}
+                </p>
+                <p>
+                  <span className='font-bold'>Price : </span> 
+                  <span>$ {data.price}</span>
+                </p>
+              </div>
+              <p className=' h-[250px] overflow-auto'>
+                <span className='font-bold'>Description :</span> 
+                <span className=''>{data.description}</span>
+              </p>
+
+            </div>
           </div>
         </div>
       )}

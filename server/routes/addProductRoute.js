@@ -25,7 +25,7 @@ router.post('/', upload.single('file'), async(req, res) => {
     price : parseInt(price),
     description,
     category,
-    image: `../../ecomm/src/images/productImages/${imageInfo}`
+    image: imageInfo
   }
 
   productsDB.setProducts([...productsDB.products, newProduct])
