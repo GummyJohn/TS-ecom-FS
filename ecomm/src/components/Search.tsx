@@ -1,11 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import { IoAdd } from "react-icons/io5";
-import { Products, getData } from "../ts/utils";
+import { Products } from "../ts/interface";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { RoleContext } from "../roleContext";
 import Loading from "./Loading";
 import Card from "./Card";
+import axios from "axios";
 
 const jewelryBgImg = {
   backgroundImage: "url(../src/images/jewelryBG.jpg)",
@@ -57,11 +58,21 @@ const Search = ({ addCart }: SearchProps) => {
   });
 
   useEffect(() => {
-    getData('http://localhost:4001/products/all',
-      setData,
-      setError,
-      setLoading
-    )
+    async function getInventory() {
+      try {
+        setLoading(true);
+        const response = await axios.get("http://localhost:4001/products/all");
+        if (response.status === 200) {
+          setData(response.data);
+          setLoading(false);
+        }
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+      }
+    }
+
+    getInventory();
   }, []);
 
   return (
@@ -78,14 +89,14 @@ const Search = ({ addCart }: SearchProps) => {
           <motion.div
             initial={{ x: "-100vw" }}
             animate={{ x: 0 }}
-            transition={{ duration: .8 }}
+            transition={{ duration: 0.8 }}
             style={menClothesBgImg}
             className="w-[25%] h-full"
           ></motion.div>
           <motion.div
             initial={{ x: "-100vw" }}
             animate={{ x: 0 }}
-            transition={{ duration: .7 }}
+            transition={{ duration: 0.7 }}
             style={technologyBgImg}
             className="w-[25%] h-full"
           ></motion.div>
@@ -93,7 +104,7 @@ const Search = ({ addCart }: SearchProps) => {
             style={jewelryBgImg}
             initial={{ x: "-100vw" }}
             animate={{ x: 0 }}
-            transition={{ duration: .5 }}
+            transition={{ duration: 0.5 }}
             className="w-[25%] h-full"
           ></motion.div>
         </div>
@@ -103,7 +114,7 @@ const Search = ({ addCart }: SearchProps) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: .9, duration: .5 }}
+          transition={{ delay: 0.9, duration: 0.5 }}
           className="relative z-10 w-full "
         >
           <div className="flex w-full flex justify-center items-center">
@@ -135,10 +146,9 @@ const Search = ({ addCart }: SearchProps) => {
                 onClick={() => navigate("/addproduct")}
                 className="w-[150px] h-[150px] rounded-[100%] hover: shadow-2xl hover:shadow-black flex justify-center items-center"
               >
-                <IoAdd className="text-7xl"/>
+                <IoAdd className="text-7xl" />
               </button>
               <p>Add Item</p>
-            
             </motion.div>
           )}
 
@@ -212,6 +222,7 @@ const Search = ({ addCart }: SearchProps) => {
               return (
                 <Card
                   id={product.id}
+                  category={product.category}
                   key={product.id}
                   img={product.image}
                   title={product.title}

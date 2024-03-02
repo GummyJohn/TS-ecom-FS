@@ -17,6 +17,6 @@ app.use('/register', require('./routes/registerRoute'));
 app.use('/signin', require('./routes/signinRoute'));
 app.use('/islogged', require('./routes/isLoggedRoute'));
 app.use('/signout', require('./routes/signoutRoute'));
-app.use('/addproduct', require('./routes/addProductRoute'));
+app.use('/handleproducts',require('./routes/handleProductsRoute'));
 
 app.listen(4001, () => console.log('listening to port 4001'))

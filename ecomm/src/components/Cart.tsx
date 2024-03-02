@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Products } from "../ts/utils";
+import { Products } from "../ts/interface";
 import CartItem from "./CartItem";
 
 interface CartProps {

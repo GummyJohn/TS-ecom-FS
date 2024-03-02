@@ -16,7 +16,7 @@ const DeleteConfirmation = (
 
   async function handleDeleteProduct(id: number){
     try{
-      const response = await axios.delete(`http://localhost:4001/products/delete/${id}`)
+      const response = await axios.delete(`http://localhost:4001/handleproducts/delete/${id}`)
 
       if(response.status === 200){
         setSuccessfulD(true)
@@ -32,7 +32,6 @@ const DeleteConfirmation = (
   function closeAndReload(){
     setSuccessfulD(false)
     setConfirmDelete(false)
-    window.location.reload()
   }
 
   return (
