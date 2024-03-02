@@ -1,4 +1,4 @@
-import { Products } from "../ts/utils";
+import { Products } from "../ts/interface";
 
 interface CartItemProps {
   id: number;
@@ -41,15 +41,20 @@ const CartItem = ({ list, setCart, cartItem, id }: CartItemProps) => {
   return (
     <div className="flex items-center ">
       <div className="w-[50%] h-[200px] p-3">
-        <img src={cartItem.image.includes('http') ? cartItem.image : `../../src/images/productImages/${cartItem.image}`} 
-          alt="cart item" 
-          className="w-full h-full" 
+        <img
+          src={
+            cartItem.image.includes("http")
+              ? cartItem.image
+              : `../../src/images/productImages/${cartItem.image}`
+          }
+          alt="cart item"
+          className="w-full h-full"
         />
       </div>
 
       <div className="w-[50%] text-center flex justify-center flex-col items-center">
         <p className="w-[95%] mb-2">{cartItem.title}</p>
-
+        <p>Size: {cartItem.size}</p>
         <div className="flex items-center justify-between w-[85%] my-2">
           <p>$ {(cartItem.price * cartItem.quanity).toFixed(2)}</p>
           <div>

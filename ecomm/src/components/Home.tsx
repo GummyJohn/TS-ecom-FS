@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useLayoutEffect } from 'react'
+import { useState, useContext, useLayoutEffect } from 'react'
 import { RoleContext } from '../roleContext'
 import { useNavigate } from 'react-router-dom'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -52,11 +52,9 @@ const Showcase = ({title, subText, path}: ShowcaseProps) => {
 }
 
 const Home = () => {
-  console.log('home rendered')
   const navigate = useNavigate();
   const { role, authenticate } = useContext(RoleContext)
   const [imgIndex, setImgIndex] = useState<number>(0)
-  const [data, setData] = useState({})
 
   const bgStyle = {
     backgroundImage : `url(${showcaseInfo[imgIndex].img})`,

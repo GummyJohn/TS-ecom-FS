@@ -58,7 +58,7 @@ const AddProductForm = () => {
     }
 
     try{
-      const response = await axios.post('http://localhost:4001/addproduct', formData)
+      const response = await axios.post('http://localhost:4001/handleproducts/add', formData)
 
       if(response.status === 404){
         setError(true)

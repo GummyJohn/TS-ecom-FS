@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getData, Products } from "../ts/utils";
+import { Products } from "../ts/interface";
 import Card from "./Card";
 import Loading from "./Loading";
-import axios from 'axios'
+import axios from "axios";
 
 interface TemplateProps {
   title?: string;
@@ -21,8 +21,6 @@ const CaterogryTemplate = ({
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  console.log(data);
-
   const bgImg = {
     backgroundImage: `url(../src/images/${imgSrc}BG.jpg)`,
     backgroundPosition: "center",
@@ -30,21 +28,28 @@ const CaterogryTemplate = ({
     backgroundSize: "cover",
   };
 
+  console.log(category);
+
   useEffect(() => {
-    async function getData(){
-      try{
-        setLoading(true)
-        const response = await axios.get(`http://localhost:4001/products/${category}`)
-        if(response.status === 200){
-          setData(response.data)
-          setLoading(false)
+    async function data() {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `http://localhost:4001/products/men-clothing`
+        );
+        console.log(response);
+
+        if (response.status === 200) {
+          setData(response.data);
+          setLoading(false);
         }
-      }catch(err){
-        setError(true)
+      } catch (err) {
+        setError(true);
+        setLoading(false);
       }
     }
 
-    getData()
+    data();
   }, []);
 
   return (
@@ -67,11 +72,12 @@ const CaterogryTemplate = ({
           <Loading />
         ) : (
           <div className="flex flex-wrap justify-evenly my-4">
-            {data && data.map((product) => {
-                console.log(product)
+            {data &&
+              data.map((product) => {
                 return (
                   <Card
                     id={product.id}
+                    category={product.category}
                     key={product.id}
                     img={product.image}
                     title={product.title}

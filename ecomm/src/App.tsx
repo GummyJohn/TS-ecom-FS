@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Products } from "./ts/utils";
+import { Products } from "./ts/interface";
 import CaterogryTemplate from "./components/CaterogryTemplate";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
@@ -8,6 +8,7 @@ import Search from "./components/Search";
 import SigninPage from "./components/SigninPage";
 import AddProductForm from "./forms/AddProductForm";
 import UpdateForm from "./forms/UpdateForm";
+import ProductPage from "./components/ProductPage";
 
 function App() {
   const storageCartString = localStorage.getItem("cart");
@@ -55,10 +56,10 @@ function App() {
           path="/products/technology"
           element={
             <CaterogryTemplate
-            imgSrc="technology"
-            category="technology"
-            title="Technology"
-            addCart={addCart}
+              imgSrc="technology"
+              category="technology"
+              title="Technology"
+              addCart={addCart}
             />
           }
         />
@@ -67,10 +68,10 @@ function App() {
           path="/products/men's Clothes"
           element={
             <CaterogryTemplate
-            imgSrc="mensclothes"
-            category="men's-clothes"
-            title="Men's Clothes"
-            addCart={addCart}
+              imgSrc="mensclothes"
+              category="men-clothing"
+              title="Men's Clothes"
+              addCart={addCart}
             />
           }
         />
@@ -79,10 +80,10 @@ function App() {
           path="/products/women's Clothes"
           element={
             <CaterogryTemplate
-            imgSrc="womenclothes"
-            category="women's-clothes"
-            title="Women's Clothes"
-            addCart={addCart}
+              imgSrc="womenclothes"
+              category="women-clothing"
+              title="Women's Clothes"
+              addCart={addCart}
             />
           }
         />
@@ -91,18 +92,19 @@ function App() {
           path="/products/jewerly"
           element={
             <CaterogryTemplate
-            imgSrc="jewelry"
-            category="jewerly"
-            title="Jewerly"
-            addCart={addCart}
+              imgSrc="jewelry"
+              category="jewelry"
+              title="Jewelry"
+              addCart={addCart}
             />
           }
         />
 
         <Route path="/browse" element={<Search addCart={addCart} />} />
         <Route path="/signin" element={<SigninPage />} />
-        <Route path="/addproduct" element={<AddProductForm />}/>
-        <Route path="/updateproduct" element={<UpdateForm />}/>
+        <Route path="/addproduct" element={<AddProductForm />} />
+        <Route path="/updateproduct/:id" element={<UpdateForm />} />
+        <Route path="/product/:id" element={<ProductPage addCart={addCart}/>} />
       </Routes>
     </BrowserRouter>
   );

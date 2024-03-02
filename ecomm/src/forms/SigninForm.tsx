@@ -11,46 +11,46 @@ const SignInForm = ({setShowSignIn} : SignInFromProps) => {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
   const [wrongUser, setWrongUser] = useState<boolean>(false);
   const [wrongPass, setWrongPass] = useState<boolean>(false);
   
   async function handleSubmit(e : FormEvent<HTMLFormElement>){
     e.preventDefault();
-
-    const config = {
-      headers: {
-        'Content-Type' : 'application/json'
-      },
-      withCredentials: true
-    }
+  
+    if(username === '' || password === '') return;
 
     try{
-      const response = await axios.post('http://localhost:4001/signin',
+      const response = await axios.post('http://localhost:4001/signin/',
         {
           username,
           password
         }, 
-        config
+        {
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          withCredentials: true
+        }
       )
 
-      if(response.status === 404){
+      if(response.data === 'user not found'){
         setWrongUser(true)
-        setTimeout(() => {setWrongUser(false)}, 1000)
+        setTimeout(() => { setWrongUser(false) }, 500)
+        return;
       }
 
-      if(response.status === 401){
+      if(response.data === 'Incorrect password'){
         setWrongPass(true)
-        setTimeout(() => { setWrongUser(false) }, 1000)
+        setTimeout(() => { setWrongPass(false) }, 500)
+        return;
       }
 
       if(response.status === 200) {
         navigate('/')
       }
-
     }catch(err: unknown){
       if(err instanceof Error){
-        console.log(err.message)
+        console.log('sign in failed')
       }
     }
   }
