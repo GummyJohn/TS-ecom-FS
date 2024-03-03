@@ -4,9 +4,10 @@ import axios from 'axios'
 
 interface SignInFromProps{
   setShowSignIn: (show: boolean) => void;
+  success: boolean;
 }
 
-const SignInForm = ({setShowSignIn} : SignInFromProps) => {
+const SignInForm = ({setShowSignIn, success} : SignInFromProps) => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>('');
@@ -48,6 +49,10 @@ const SignInForm = ({setShowSignIn} : SignInFromProps) => {
       if(response.status === 200) {
         navigate('/')
       }
+
+      if(response.data === 'isAdmin'){
+        navigate('/admin')
+      }
     }catch(err: unknown){
       if(err instanceof Error){
         console.log('sign in failed')
@@ -61,6 +66,13 @@ const SignInForm = ({setShowSignIn} : SignInFromProps) => {
         onSubmit={handleSubmit}
         className='border-2 border-blue-500 rounded-2xl py-2 px-5 w-[300px] bg-white'
       >
+        {success && (
+          <div className='text-center text-xl text-blue-600'>
+            <p>Registeration Successful!</p>
+          </div>
+          )
+        }
+
         <h1 className='my-5 text-center text-3xl'>
           Sign In
         </h1>

@@ -8,6 +8,7 @@ const upload = require('../middlewares/multer');
 const fsPromise = require('fs').promises;
 const router = express.Router();
 
+
 router.post('/add', upload.single('file'), async(req, res) => {
   const {title, price, description, category} = req.body;
   const imageInfo = req.file.originalname;

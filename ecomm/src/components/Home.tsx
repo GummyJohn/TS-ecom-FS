@@ -82,7 +82,7 @@ const Home = () => {
   }
 
   useLayoutEffect(() => {
-    authenticate()
+    authenticate()   
   }, [])
 
   return (

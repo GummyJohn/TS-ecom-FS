@@ -27,7 +27,8 @@ router.post('/', async (req, res) => {
     username,
     email,
     password: hashPassword,
-    role: 2000
+    role: 2000,
+    spent: 0,
   }
 
   userDB.setUsers([...userDB.users, newUser])

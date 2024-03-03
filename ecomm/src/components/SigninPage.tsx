@@ -11,6 +11,7 @@ const bgStyle = {
 
 const SignOrRegisterPage = () => {
   const [showSignIn, setShowSignIn] = useState<boolean>(true);
+  const [success, setSuccess] = useState<boolean>(false)
 
   return (
     <div
@@ -28,9 +29,9 @@ const SignOrRegisterPage = () => {
         </div>
 
         {showSignIn ? (
-          <SignInForm setShowSignIn={setShowSignIn} />
+          <SignInForm setShowSignIn={setShowSignIn} success={success}/>
         ) : (
-          <RegisterFrom setShowSignIn={setShowSignIn} />
+          <RegisterFrom setShowSignIn={setShowSignIn} setSuccess={setSuccess}/>
         )}
       </div>
     </div>

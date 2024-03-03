@@ -9,6 +9,8 @@ import SigninPage from "./components/SigninPage";
 import AddProductForm from "./forms/AddProductForm";
 import UpdateForm from "./forms/UpdateForm";
 import ProductPage from "./components/ProductPage";
+import AdminPage from "./components/AdminPage";
+import Checkout from "./components/Checkout";
 
 function App() {
   const storageCartString = localStorage.getItem("cart");
@@ -100,11 +102,13 @@ function App() {
           }
         />
 
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/browse" element={<Search addCart={addCart} />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/addproduct" element={<AddProductForm />} />
         <Route path="/updateproduct/:id" element={<UpdateForm />} />
         <Route path="/product/:id" element={<ProductPage addCart={addCart}/>} />
+        <Route path="/checkout" element={<Checkout cart={cart}/>} />
       </Routes>
     </BrowserRouter>
   );

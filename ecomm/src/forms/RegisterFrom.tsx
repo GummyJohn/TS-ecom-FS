@@ -6,6 +6,7 @@ import axios from 'axios'
 
 interface RegisterFromProps{
   setShowSignIn: (show: boolean) => void;
+  setSuccess: (show: boolean) => void;
 }
 
 interface FormRequirements {
@@ -15,10 +16,9 @@ interface FormRequirements {
   confirmP: string;
 }
 
-const RegisterFrom = ({setShowSignIn} : RegisterFromProps) => {
+const RegisterFrom = ({setShowSignIn, setSuccess} : RegisterFromProps) => {
   const [state, dispatch] = useReducer(registerReduce, controls);
   
-  const [success, setSuccess] = useState<boolean>(false)
 
   const [formValues ,setFormValues] = useState<FormRequirements>({
     username: '',
@@ -75,9 +75,11 @@ const RegisterFrom = ({setShowSignIn} : RegisterFromProps) => {
           password: '',
           confirmP: '',
         })
-        setSuccess(true)
-        setTimeout(() => {setSuccess(false)}, 1500)
+        setShowSignIn(true);
+        setSuccess(true);
+        setTimeout(() => {setSuccess(false)}, 1500);
       }
+      
     }catch(err : unknown){
       if(err instanceof Error){
         console.log(err.message)
@@ -94,16 +96,6 @@ const RegisterFrom = ({setShowSignIn} : RegisterFromProps) => {
         <h1 className='my-5 text-center text-3xl'>
           Register
         </h1>
-
-        {success && (
-          <div className='text-center text-xl text-blue-600'>
-            <p >
-              Registeration Successful!
-            </p>
-            <p>Return to Sign in!</p>
-          </div>
-          )
-        }
 
         <div className='flex flex-col my-2'>
           <label htmlFor="username"

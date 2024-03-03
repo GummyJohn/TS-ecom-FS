@@ -16,7 +16,7 @@ interface NavbarProp {
 
 const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
   const navigate = useNavigate();
-  const { role, handleSignout, authenticate } = useContext(RoleContext);
+  const { role, handleSignout, authenticate} = useContext(RoleContext);
   const [showCart, setShowCart] = useState<boolean>(false);
 
   useLayoutEffect(() => {
@@ -56,9 +56,10 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
               Sign In
             </button>
           )}
+
           {role !== null && (
             <button
-              onClick={handleSignout}
+              onClick={() => handleSignout(navigate, '/')}      
               className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
             >
               Sign Out

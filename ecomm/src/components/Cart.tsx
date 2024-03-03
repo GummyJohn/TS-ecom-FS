@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Products } from "../ts/interface";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { RoleContext } from "../roleContext";
 import CartItem from "./CartItem";
 
 interface CartProps {
@@ -9,12 +12,22 @@ interface CartProps {
 }
 
 const Cart = ({ setShowCart, cart, setCart }: CartProps) => {
+  const navigate = useNavigate();
+  const { addSpent } = useContext(RoleContext);
+
   const total = cart
     .reduce(
       (total: number, curr: Products) => total + curr.price * curr.quanity,
       0
     )
     .toFixed(2);
+
+  function checkout(){
+    setShowCart(false);
+    setCart([]);
+    addSpent(parseInt(total));
+    navigate('/checkout')
+  }
 
   return (
     <div className="absolute h-full w-full z-50 bg-black h-screen top-0 bg-opacity-60">
@@ -55,7 +68,10 @@ const Cart = ({ setShowCart, cart, setCart }: CartProps) => {
               })}
           </div>
 
-          <button className="py-2 px-4 rounded-2xl bg-black text-white mt-5">
+          <button 
+            onClick={checkout}
+            className="py-2 px-4 rounded-2xl bg-black text-white mt-5"
+          >
             Checkout
           </button>
         </div>
