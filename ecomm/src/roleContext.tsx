@@ -1,34 +1,49 @@
-import { useEffect, createContext, useState, ReactNode } from "react"
+import { createContext, useState, ReactNode } from "react"
+import axios from 'axios'
 
 export interface Role {
   user: string;
   role: number;
+  spent: number;
 }
 
 interface RoleContextType {
   role: Role | null ;
   authenticate : () => Promise<void>;
-  handleSignout: () => Promise<void>;
+  handleSignout: (navigate: (path: string) => void,  path: string) => Promise<void>;
+  addSpent: (num: number) => void;
 }
 
 export const RoleContext = createContext<RoleContextType>({
   role: null,
   authenticate: async () => {},
   handleSignout: async () => {},
+  addSpent: () => {},
 })
 
 export const AuthRoleProvider = ({ children } : {children: ReactNode}) => {
   const [role, setRole] = useState<Role | null>(null);
+ 
+  function addSpent(num: number){
+    const amount = parseInt(num.toFixed(2));
 
+    if(role){
+      setRole({
+        ...role,
+        spent: amount
+      })
+    }
+    
+  }
+ 
   async function authenticate() {
     try {
-      const response = await fetch('http://localhost:4001/islogged', {
-        method: 'POST',
-        credentials: 'include'
+      const response = await axios.get('http://localhost:4001/islogged', {
+        withCredentials: true
       });
+      
       if (response.status === 200) {
-        const data = await response.json();
-        setRole(data);
+        setRole(response.data);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -37,15 +52,22 @@ export const AuthRoleProvider = ({ children } : {children: ReactNode}) => {
     }
   }
 
-  async function handleSignout(){
-    try{
-      const response = await fetch('http://localhost:4001/signout', {
-        method: 'POST',
-        credentials: 'include'
-      })
 
+  async function handleSignout(navigate: (path: string) => void, path: string){
+    try{
+      const response = await axios.put('http://localhost:4001/signout', {
+        role
+      },
+      {   
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        withCredentials: true
+      })
+ 
       if(response.status === 200){
         setRole(null)
+        navigate(path)
       }
     }catch(err){
       if(err instanceof Error){
@@ -55,7 +77,7 @@ export const AuthRoleProvider = ({ children } : {children: ReactNode}) => {
   }
 
   return (
-    <RoleContext.Provider value={{ role, authenticate, handleSignout }}>
+    <RoleContext.Provider value={{ role, authenticate, handleSignout, addSpent}}>
       {children}
     </RoleContext.Provider>
   );

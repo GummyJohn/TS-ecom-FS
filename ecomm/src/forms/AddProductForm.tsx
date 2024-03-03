@@ -1,6 +1,10 @@
 import { FaCloudDownloadAlt } from "react-icons/fa";
-import  { ChangeEvent, FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import  { 
+  ChangeEvent, FormEvent, 
+  useState, useContext, useEffect
+} from 'react'
+import { RoleContext } from "../roleContext";
+import {  useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 interface ProductInfo{
@@ -11,6 +15,7 @@ interface ProductInfo{
 }
 
 const AddProductForm = () => {
+  const { role } = useContext(RoleContext);
   const navigate = useNavigate();
   const [error, setError] = useState<boolean>(false);
 
@@ -74,6 +79,21 @@ const AddProductForm = () => {
       }
     }
   }
+
+  function redirect(){
+    if(role?.role === 2000) {
+      navigate('/')
+    }
+    
+    if(!role) {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    redirect()
+  }, [])
+
 
   return (
     <div className='flex flex-col justify-center items-center mt-16'>

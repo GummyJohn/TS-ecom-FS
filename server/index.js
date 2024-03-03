@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const middlewares = require('./middlewares/userAuth');
 const cookieParser =require('cookie-parser');
 const app = express();
 
@@ -18,5 +19,6 @@ app.use('/signin', require('./routes/signinRoute'));
 app.use('/islogged', require('./routes/isLoggedRoute'));
 app.use('/signout', require('./routes/signoutRoute'));
 app.use('/handleproducts',require('./routes/handleProductsRoute'));
+app.use('/admin', require('./routes/adminInfoRoute'))
 
 app.listen(4001, () => console.log('listening to port 4001'))

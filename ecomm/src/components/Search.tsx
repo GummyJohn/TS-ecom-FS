@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-import { IoAdd } from "react-icons/io5";
 import { Products } from "../ts/interface";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -135,23 +134,6 @@ const Search = ({ addCart }: SearchProps) => {
       </div>
       <div>
         <div className="flex w-full justify-evenly items-center mt-10 ">
-          {role?.role === 3000 && (
-            <motion.div
-              initial={{ y: "-100vw" }}
-              animate={{ y: 0 }}
-              transition={{ delay: 1.5, duration: 1 }}
-              className="text-center"
-            >
-              <button
-                onClick={() => navigate("/addproduct")}
-                className="w-[150px] h-[150px] rounded-[100%] hover: shadow-2xl hover:shadow-black flex justify-center items-center"
-              >
-                <IoAdd className="text-7xl" />
-              </button>
-              <p>Add Item</p>
-            </motion.div>
-          )}
-
           <motion.div
             initial={{ y: "-100vw" }}
             animate={{ y: 0 }}

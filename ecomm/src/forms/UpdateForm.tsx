@@ -1,5 +1,5 @@
 import { Products } from "../ts/interface";
-import { useState, useLayoutEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -36,7 +36,7 @@ const UpdateForm = () => {
 
   }
  
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function getProduct() {
       try {
         const response = await axios.get(

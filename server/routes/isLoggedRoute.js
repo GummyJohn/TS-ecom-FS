@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
   const authHeader = req.headers.cookie;
   if(!authHeader) return;
   const token = authHeader.split('=')[1]
@@ -13,7 +13,11 @@ router.post('/', (req, res) => {
     req.user = user
   })
   
-  res.status(200).json({user: req.user.username ,role: req.user.role});
+  res.status(200).json({
+    user: req.user.username ,
+    role: req.user.role, 
+    spent: req.user.spent
+  });
 })
 
 
