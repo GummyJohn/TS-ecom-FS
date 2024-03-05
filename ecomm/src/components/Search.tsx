@@ -41,8 +41,6 @@ interface SearchProps {
 
 const Search = ({ addCart }: SearchProps) => {
   const navigate = useNavigate();
-  const { role } = useContext(RoleContext);
-
   const [data, setData] = useState<Products[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -76,7 +74,7 @@ const Search = ({ addCart }: SearchProps) => {
 
   return (
     <>
-      <div className="mt-20 h-[30vh] relative flex justify-center items-center flex-col">
+      <div className="mt-16 h-[30vh] relative flex justify-center items-center flex-col">
         <div className="flex absolute w-full h-full">
           <motion.div
             initial={{ x: "-100vw" }}
@@ -121,7 +119,7 @@ const Search = ({ addCart }: SearchProps) => {
               type="text"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="w-[50%] py-3 px-5 rounded-tl-2xl rounded-bl-2xl outline-none"
+              className="md:w-[50%] py-3 px-5 rounded-tl-2xl rounded-bl-2xl outline-none"
             />
             <button
               onClick={() => setSearchValue("")}
@@ -133,12 +131,14 @@ const Search = ({ addCart }: SearchProps) => {
         </motion.div>
       </div>
       <div>
-        <div className="flex w-full justify-evenly items-center mt-10 ">
+        <div 
+          className="flex w-full md:justify-evenly items-center mt-10     overflow-auto"
+        >
           <motion.div
             initial={{ y: "-100vw" }}
             animate={{ y: 0 }}
             transition={{ delay: 1.3, duration: 1 }}
-            className="text-center"
+            className="text-center mx-4"
           >
             <button
               style={womenClothesBgImg}
@@ -152,7 +152,7 @@ const Search = ({ addCart }: SearchProps) => {
             initial={{ y: "-100vw" }}
             animate={{ y: 0 }}
             transition={{ delay: 1.1, duration: 1 }}
-            className="text-center"
+            className="text-center mx-4"
           >
             <button
               style={menClothesBgImg}
@@ -166,7 +166,7 @@ const Search = ({ addCart }: SearchProps) => {
             initial={{ y: "-100vw" }}
             animate={{ y: 0 }}
             transition={{ delay: 1, duration: 1 }}
-            className="text-center"
+            className="text-center mx-4"
           >
             <button
               style={technologyBgImg}
@@ -180,7 +180,7 @@ const Search = ({ addCart }: SearchProps) => {
             initial={{ y: "-100vw" }}
             animate={{ y: 0 }}
             transition={{ delay: 0.8, duration: 1 }}
-            className="text-center"
+            className="text-center mx-4"
           >
             <button
               style={jewelryBgImg}
@@ -190,6 +190,7 @@ const Search = ({ addCart }: SearchProps) => {
             <p>Jewelry</p>
           </motion.div>
         </div>
+
         {error && (
           <p className="text-red-500 text-6xl text-center mt-10">
             Sorry! Network Error

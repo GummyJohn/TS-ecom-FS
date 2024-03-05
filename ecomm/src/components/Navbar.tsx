@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Products } from "../ts/interface";
 import { RoleContext } from "../roleContext";
+import HamburgerMenu from "./HamburgerMenu";
 import Cart from "./Cart";
 
 interface NavbarProp {
@@ -11,7 +12,7 @@ interface NavbarProp {
   already: boolean;
   added: boolean;
   cart: Products[];
-  setCart: (data: Products[]) => void;
+  setCart: React.Dispatch<React.SetStateAction<Products[]>>;
 }
 
 const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
@@ -24,68 +25,78 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
   }, []);
 
   return (
-    <div
-      className={
-        role?.role === 3000
-          ? " fixed w-full top-0 bg-white   z-30 py-3"
-          : " fixed w-full top-0 bg-white z-30 "
-      }
-    >
-      <div className="flex justify-between items-center py-3 px-6">
-        <h1 className="text-xl">ShopNest</h1>
+    <>
+      <HamburgerMenu 
+        length={length} 
+        already={already} 
+        added={added}
+        setShowCart={setShowCart}
+      />
+      
+      <div
+        className={
+          role?.role === 3000
+            ? " fixed w-full top-0 bg-white   z-30 py-3"
+            : " fixed w-full top-0 bg-white z-30 "
+        }
+      >
+        <div className="hidden md:flex justify-between items-center py-3 px-6">
+          <h1 className="text-xl">ShopNest</h1>
 
-        <div className="flex items-center">
-          <button
-            onClick={() => navigate("/")}
-            className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => navigate("/browse")}
-            className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
-          >
-            Browse
-          </button>
-
-          {role === null && (
+          <div className="flex items-center">
             <button
-              onClick={() => navigate("/signin")}
+              onClick={() => navigate("/")}
               className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
             >
-              Sign In
+              Home
             </button>
-          )}
-
-          {role !== null && (
             <button
-              onClick={() => handleSignout(navigate, '/')}      
+              onClick={() => navigate("/browse")}
               className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
             >
-              Sign Out
+              Browse
             </button>
-          )}
 
-          {role?.role !== 3000 && (
-            <button
-              onClick={() => setShowCart(true)}
-              className="border border-black p-3 rounded-full hover:border-blue-500 hover:text-blue-500 flex items-center "
-            >
-              {already && <p className="mr-3">Already in Cart</p>}
-              {added && <p>Added to Cart</p>}
-              <FaCartShopping className="text-3xl" />
-              <p className="ml-1">{length}</p>
-            </button>
-          )}
+            {role === null && (
+              <button
+                onClick={() => navigate("/signin")}
+                className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
+              >
+                Sign In
+              </button>
+            )}
+
+            {role !== null && (
+              <button
+                onClick={() => handleSignout(navigate, '/')}      
+                className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
+              >
+                Sign Out
+              </button>
+            )}
+
+            {role?.role !== 3000 && (
+              <button
+                onClick={() => setShowCart(true)}
+                className="border border-black p-3 rounded-full hover:border-blue-500 hover:text-blue-500 flex items-center "
+              >
+                {already && <p className="mr-3">Already in Cart</p>}
+                {added && <p>Added to Cart</p>}
+                <FaCartShopping className="text-3xl" />
+                <p className="ml-1">{length}</p>
+              </button>
+            )}
+          </div>
         </div>
+
+        <AnimatePresence>
+          {showCart && (
+            <Cart cart={cart} setCart={setCart} setShowCart={setShowCart} />
+          )}
+        </AnimatePresence>
       </div>
 
-      <AnimatePresence>
-        {showCart && (
-          <Cart cart={cart} setCart={setCart} setShowCart={setShowCart} />
-        )}
-      </AnimatePresence>
-    </div>
+    </>
   );
 };
 

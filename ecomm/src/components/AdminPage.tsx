@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext }from 'react';
+import { useEffect, useState, useLayoutEffect }from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoleContext } from '../roleContext';
 import { motion } from 'framer-motion';
@@ -20,15 +20,18 @@ interface AdminInfo {
 
 const AdminPage = () => {
   const navigate = useNavigate();
-  const { role } = useContext(RoleContext);
   const [adminInfo, setAdminInfo] = useState<AdminInfo>()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     async function getAdminInfo(){
       try{
         const response = await axios.get('http://localhost:4001/admin/info', {
           withCredentials: true
         })
+        if(response.data === 'Not Auhorized'){
+          navigate('/')
+        }
+
         if(response.status === 200){
           setAdminInfo(response.data)
         }
@@ -51,7 +54,7 @@ const AdminPage = () => {
         className='w-[90%] mt-5 m-auto h-[40vh] border flex justify-center items-center rounded-2xl'
       >
         <div className='flex w-full flex-col px-5'>
-          <h1 className='text-3xl mb-10 text-center'>Welcome Admin : {role?.user}</h1>
+          <h1 className='text-3xl mb-10 text-center'>Welcome Admin </h1>
           <div className='flex items-center justify-evenly'>
             <div 
               className='border text-center py-3 px-5 rounded-2xl w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'
@@ -72,7 +75,7 @@ const AdminPage = () => {
             <div className='border text-center py-3 px-5 rounded-2xl w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'>
               <div>
                 <h1 className='text-xl'>Total Sales</h1>
-                <h1>{adminInfo?.totalSales}</h1>
+                <h1>$ {adminInfo?.totalSales}</h1>
               </div>
               <FcSalesPerformance className='text-5xl'/>
             </div>
@@ -141,7 +144,7 @@ const AdminPage = () => {
                   className="w-[150px] h-[150px] rounded-[100%] hover: shadow-2xl hover:shadow-purple-500 flex justify-center items-center relative overflow-hidden"
                 >
                   <div className='absolute h-full w-full border flex justify-center items-center opacity-40'>
-                  <MdDelete className='text-9xl'/>
+                  <MdOutlineSystemUpdateAlt className='text-9xl'/>
                   </div>
 
                   <div className='w-full h-full bg-black absolute bg-opacity-50 z-10'></div>

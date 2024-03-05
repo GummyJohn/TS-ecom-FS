@@ -41,7 +41,7 @@ const Card = ({id, title, price, img, onClick, category} : CardProps) => {
       }
 
       <div 
-        className='flex justify-between w-[450px] h-[250px] my-5 p-2 rounded-2xl relative'
+        className='flex justify-between md:w-[450px] md:h-[250px] my-5 p-2 rounded-2xl relative'
       >
         <div 
           onClick={() => navigate(`/product/${id}`)}

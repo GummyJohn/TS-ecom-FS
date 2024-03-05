@@ -64,7 +64,7 @@ const SignInForm = ({setShowSignIn, success} : SignInFromProps) => {
     <div className='flex justify-center items-center'>
       <form 
         onSubmit={handleSubmit}
-        className='border-2 border-blue-500 rounded-2xl py-2 px-5 w-[300px] bg-white'
+        className='border-2 border-blue-500 rounded-2xl py-2 px-5 md:w-[300px] bg-white md:mt-10'
       >
         {success && (
           <div className='text-center text-xl text-blue-600'>
