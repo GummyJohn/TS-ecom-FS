@@ -39,8 +39,8 @@ const CartItem = ({ list, setCart, cartItem, id }: CartItemProps) => {
   }
 
   return (
-    <div className="flex items-center ">
-      <div className="w-[50%] h-[200px] p-3">
+    <div className="flex flex-col 2xl:flex-row items-center my-5 border-b-2 pb-5">
+      <div className="md:w-[50%] h-[200px] p-3">
         <img
           src={
             cartItem.image.includes("http")
@@ -52,12 +52,12 @@ const CartItem = ({ list, setCart, cartItem, id }: CartItemProps) => {
         />
       </div>
 
-      <div className="w-[50%] text-center flex justify-center flex-col items-center">
+      <div className="md:w-[50%] text-center flex justify-center flex-col items-center">
         <p className="w-[95%] mb-2">{cartItem.title}</p>
         <p>Size: {cartItem.size}</p>
-        <div className="flex items-center justify-between w-[85%] my-2">
-          <p>$ {(cartItem.price * cartItem.quanity).toFixed(2)}</p>
-          <div>
+        <div className="flex flex-col xl:flex-row items-center justify-between w-[85%] my-2 w-full">
+          <p>${(cartItem.price * cartItem.quanity).toFixed(2)}</p>
+          <div className="flex items-center">
             <button
               onClick={() => addQuanity(id)}
               className="py-2 px-4 border rounded-2xl bg-blue-500 text-white hover:bg-blue-700 mx-2"

@@ -6,7 +6,7 @@ import Loading from './Loading'
 import axios from 'axios'
 
 interface ProductPageProps {
-  addCart : (item: CartItem) => void;
+  addCart : (item: Products) => void;
 }
 
 const size = ['XS', 'S', 'M', 'L', 'XL']
@@ -42,9 +42,9 @@ const ProductPage = ({addCart} : ProductPageProps) => {
     <div>
       {
         loading ? <Loading/> : (
-          <div className='mt-20'>
-            <div className='flex items-center justify-center py-5 px-8 max-w-[1800px] m-auto'>
-              <div className='w-[50%] rounded-2xl h-full'>
+          <div className='mt-16'>
+            <div className='flex flex-col md:flex-row items-center justify-center py-5 px-8 max-w-[1800px] m-auto'>
+              <div className='md:w-[50%] rounded-2xl h-full'>
                 <img 
                   src={
                     data?.image.includes('fakestore') ? data.image:  
@@ -54,12 +54,12 @@ const ProductPage = ({addCart} : ProductPageProps) => {
                   className='h-full w-full rounded-2xl p-2'
                 />
               </div>
-              <div className='w-[50%] text-center p-8'>
+              <div className='md:w-[50%] text-center p-8'>
                 <h1 className='text-3xl mb-5'>{data?.title}</h1>
                 <h2 className='text-2xl my-5'>$ {data?.price}</h2>
                 
                 { (data?.category.includes('clothing') && !data?.title.includes('Backpack')) && (
-                  <div>
+                  <div className='flex items-center justify-center'>
                     {
                       size.map((size) => {
                         return (

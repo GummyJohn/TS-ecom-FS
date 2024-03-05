@@ -108,7 +108,7 @@ function App() {
         <Route path="/addproduct" element={<AddProductForm />} />
         <Route path="/updateproduct/:id" element={<UpdateForm />} />
         <Route path="/product/:id" element={<ProductPage addCart={addCart}/>} />
-        <Route path="/checkout" element={<Checkout cart={cart}/>} />
+        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart}/>} />
       </Routes>
     </BrowserRouter>
   );

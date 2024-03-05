@@ -91,7 +91,7 @@ const RegisterFrom = ({setShowSignIn, setSuccess} : RegisterFromProps) => {
     <div className='flex justify-center items-center'>
       <form 
         onSubmit={handleRegister}
-        className='border-2 border-blue-500 rounded-2xl py-2 px-5 w-[300px] bg-white'
+        className='border-2 border-blue-500 rounded-2xl py-2 px-5 md:w-[300px] bg-white md:mt-[7rem]'
       >
         <h1 className='my-5 text-center text-3xl'>
           Register

@@ -16,14 +16,14 @@ const SignOrRegisterPage = () => {
   return (
     <div
       style={bgStyle}
-      className="h-[90vh] relative rounded-full border-2 border-blue-500 border border-black mt-24"
+      className="h-full md:h-[130vh] lg:full 2xl:h-[90vh] relative 2xl:rounded-full 2xl:border-2 border-blue-500  mt-16"
     >
-      <div className="absolute bg-black h-full w-full opacity-70 z-10 rounded-full"></div>
+      <div className="absolute bg-black h-full w-full opacity-70 z-10 2xl:rounded-full"></div>
 
       <div className="flex flex-col justify-center items-center border-black relative z-20 h-[95vh]">
-        <div className="text-center flex flex-col justify-center items-center text-white mb-10">
+        <div className="text-center flex flex-col justify-center items-center text-white mb-10 md:hidden lg:inline">
           <h1 className="text-3xl my-2">Join The ShopNest Family!</h1>
-          <h2 className="text-2xl">
+          <h2 className="text-2xl px-4">
             Where spending is never gonna be a problem!
           </h2>
         </div>

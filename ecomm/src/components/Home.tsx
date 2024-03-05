@@ -39,9 +39,9 @@ const Showcase = ({title, subText, path}: ShowcaseProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className='text-center'>
-      <div className='text-7xl mb-5'>{title}</div>
-      <p className='text-2xl mb-5'>{subText}</p>
+    <div className='text-center w-full py-2'>
+      <div className='text-4xl md:text-7xl mb-5 '>{title}</div>
+      <p className='text-xl md:text-2xl mb-5'>{subText}</p>
       <button onClick={() => navigate(path)}
         className='border py-2 px-4 rounded-2xl hover:bg-black'
       >
@@ -88,10 +88,10 @@ const Home = () => {
   return (
     <>
       <div style={bgStyle}
-        className='h-[50vh] mt-20 relative flex items-center'
+        className='h-[80vh] md:h-[60vh] lg:h-[50vh] mt-16 relative flex items-center'
       >
         <div className='bg-black absolute opacity-70 h-full w-full z-10'></div>
-        <div className='relative z-20 text-white flex justify-between items-center w-full px-10'>
+        <div className='relative z-20 text-white flex justify-between items-center w-full md:px-10'>
           <button onClick={() => changeShowcase('-')}
             className='hover:bg-black rounded-full p-2 '
           >
@@ -112,7 +112,7 @@ const Home = () => {
 
       {
         role === null && (
-        <div className='h-[40vh] text-center flex justify-center items-center'>
+        <div className='my-10 text-center flex justify-center items-center'>
           <div 
             style={{boxShadow: '0px 0px 50px 10px'}}
             className='border p-4 w-[90%] rounded-3xl shadow-2xl shadow-black'
@@ -138,7 +138,7 @@ const Home = () => {
         role !== null && (
           <div 
             style={{boxShadow: '0px 0px 50px 10px'}}
-            className='h-[40vh] m-auto flex flex-col justify-center items-center mt-5 p-4 w-[90%] rounded-3xl shadow-black r'
+            className='h-[40vh] m-auto flex flex-col justify-center items-center mt-5 p-4 w-[90%] rounded-3xl shadow-black '
           >
             <div className='w-full'>
               <h1 className='text-3xl text-center'>Welcome User : {role.user}</h1> 
