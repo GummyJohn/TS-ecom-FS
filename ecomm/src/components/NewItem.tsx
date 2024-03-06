@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Products } from "../ts/interface";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 import axios from "axios";
 
 const comingSoonBg = {
@@ -13,23 +14,20 @@ const comingSoonBg = {
 const NewItem = () => {
   const navigate = useNavigate();
   const [data, setData] = useState<Products | null>();
-  const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     async function getNewItem() {
       try {
-        setLoading(true);
         const response = await axios.get(
           "http://localhost:4001/products/newItem"
         );
         if (response.status === 200) {
           setData(response.data);
         }
-        setLoading(false);
       } catch (err) {
-        setError(true);
-        setLoading(false);
+        if(err instanceof Error ){
+          console.log(`newItem Error: ${err.message}`)
+        }
       }
     }
     getNewItem();
