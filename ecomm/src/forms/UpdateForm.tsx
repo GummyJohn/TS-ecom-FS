@@ -35,7 +35,7 @@ const UpdateForm = () => {
   } 
 
   }
- 
+
   useEffect(() => {
     async function getProduct() {
       try {
@@ -63,7 +63,7 @@ const UpdateForm = () => {
   }, [id]);
   
   return (
-    <div className='flex flex-col justify-center items-center mt-16'>
+    <div className='flex flex-col justify-center items-center mt-16 w-[90%] m-auto md:w-full'>
       <div>
         <div>
           <h1 className='my-5 text-3xl text-center'>Update</h1>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Products } from "./ts/interface";
 import CaterogryTemplate from "./components/CaterogryTemplate";
 import Home from "./components/Home";
@@ -15,7 +15,6 @@ import Checkout from "./components/Checkout";
 function App() {
   const storageCartString = localStorage.getItem("cart");
   const storageCart = storageCartString ? JSON.parse(storageCartString) : null;
-
   const [cart, setCart] = useState<Products[]>(storageCart || []);
   const [already, setAlready] = useState<boolean>(false);
   const [added, setAdded] = useState<boolean>(false);
@@ -107,8 +106,14 @@ function App() {
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/addproduct" element={<AddProductForm />} />
         <Route path="/updateproduct/:id" element={<UpdateForm />} />
-        <Route path="/product/:id" element={<ProductPage addCart={addCart}/>} />
-        <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart}/>} />
+        <Route
+          path="/product/:id"
+          element={<ProductPage addCart={addCart} />}
+        />
+        <Route
+          path="/checkout"
+          element={<Checkout cart={cart} setCart={setCart} />}
+        />
       </Routes>
     </BrowserRouter>
   );

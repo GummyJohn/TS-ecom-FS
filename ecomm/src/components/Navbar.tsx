@@ -1,4 +1,4 @@
-import { useContext, useState, useLayoutEffect } from "react";
+import { useContext, useState, useEffect, useLayoutEffect } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -17,27 +17,38 @@ interface NavbarProp {
 
 const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
   const navigate = useNavigate();
-  const { role, handleSignout, authenticate} = useContext(RoleContext);
+  const { role, handleSignout, authenticate } = useContext(RoleContext);
   const [showCart, setShowCart] = useState<boolean>(false);
 
+  function directHome() {
+    if (role?.role === 3000) {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
+  }
+
   useLayoutEffect(() => {
-    authenticate();
-  }, []);
+    authenticate()   
+  }, [])
 
   return (
     <>
-      <HamburgerMenu 
-        length={length} 
-        already={already} 
+      <HamburgerMenu
+        length={length}
+        already={already}
         added={added}
         setShowCart={setShowCart}
+        showCart={showCart}
+        setCart={setCart}
+        cart={cart}
       />
-      
+
       <div
         className={
           role?.role === 3000
-            ? " fixed w-full top-0 bg-white   z-30 py-3"
-            : " fixed w-full top-0 bg-white z-30 "
+            ? " fixed w-full top-0 bg-white z-30 hidden md:inline py-3"
+            : " fixed w-full top-0 bg-white z-30 hidden md:inline"
         }
       >
         <div className="hidden md:flex justify-between items-center py-3 px-6">
@@ -45,7 +56,7 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
 
           <div className="flex items-center">
             <button
-              onClick={() => navigate("/")}
+              onClick={directHome}
               className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
             >
               Home
@@ -57,7 +68,7 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
               Browse
             </button>
 
-            {role === null && (
+            {!role && (
               <button
                 onClick={() => navigate("/signin")}
                 className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
@@ -66,15 +77,14 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
               </button>
             )}
 
-            {role !== null && (
+            {role && (
               <button
-                onClick={() => handleSignout(navigate, '/')}      
+                onClick={() => handleSignout(navigate, "/")}
                 className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
               >
                 Sign Out
               </button>
             )}
-
             {role?.role !== 3000 && (
               <button
                 onClick={() => setShowCart(true)}
@@ -95,7 +105,6 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
           )}
         </AnimatePresence>
       </div>
-
     </>
   );
 };

@@ -1,10 +1,11 @@
-import { createContext, useState, ReactNode } from "react"
+import { createContext, useState, ReactNode, useEffect } from "react"
 import axios from 'axios'
 
 export interface Role {
   user: string;
   role: number;
-  spent: number;
+  spent?: number;
+  isAdmin: boolean
 }
 
 interface RoleContextType {
@@ -75,6 +76,7 @@ export const AuthRoleProvider = ({ children } : {children: ReactNode}) => {
       }
     }
   }
+
 
   return (
     <RoleContext.Provider value={{ role, authenticate, handleSignout, addSpent}}>

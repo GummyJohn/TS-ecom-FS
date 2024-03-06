@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
   const authHeader = req.headers.cookie;
-  if(!authHeader) return;
+
+  if(authHeader === undefined) return ;
+
   const token = authHeader.split('=')[1]
   
   jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
@@ -13,6 +15,7 @@ router.get('/', (req, res) => {
     req.user = user
   })
   
+
   res.status(200).json({
     user: req.user.username ,
     role: req.user.role, 

@@ -1,6 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { RoleContext } from '../roleContext';
 
 interface SignInFromProps{
   setShowSignIn: (show: boolean) => void;
@@ -9,11 +10,12 @@ interface SignInFromProps{
 
 const SignInForm = ({setShowSignIn, success} : SignInFromProps) => {
   const navigate = useNavigate();
-
+  const { authenticate } = useContext(RoleContext)
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [wrongUser, setWrongUser] = useState<boolean>(false);
   const [wrongPass, setWrongPass] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   
   async function handleSubmit(e : FormEvent<HTMLFormElement>){
     e.preventDefault();
@@ -47,15 +49,19 @@ const SignInForm = ({setShowSignIn, success} : SignInFromProps) => {
       }
 
       if(response.status === 200) {
+        authenticate()
         navigate('/')
       }
 
       if(response.data === 'isAdmin'){
+        authenticate()
         navigate('/admin')
       }
     }catch(err: unknown){
       if(err instanceof Error){
         console.log('sign in failed')
+        setError(true)
+        setTimeout(() => { setError(false)}, 1000)
       }
     }
   }
@@ -109,12 +115,13 @@ const SignInForm = ({setShowSignIn, success} : SignInFromProps) => {
         }
 
 
-        <div className='flex justify-between items-center '>
+        <div className='flex flex-col justify-between items-center '>
           <button
-            className='py-2 px-4 bg-blue-500 text-white my-4 rounded-3xl hover:bg-black'
+            className='py-2 px-4 bg-blue-500 text-white my-4 rounded-3xl hover:bg-black self-start'
           >
             Sign In
           </button>  
+          {error && <p className='text-xl text-red-500 text-center'> Sorry Network Error refresh page try again</p>}
         </div>
 
         <div className='text-center my-2'>

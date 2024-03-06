@@ -38,13 +38,13 @@ const NewItem = () => {
   return (
     <div>
       {!data?.title && (
-        <div className="text-center flex items-center justify-between  w-full m-auto">
+        <div className="text-center flex flex-col md:flex-row items-center justify-between  w-full m-auto">
           <div
             style={comingSoonBg}
-            className="w-[50%] h-[300px] rounded-full"
+            className="my-2 w-[300px] h-[300px] rounded-2xl md:w-[50%] md:h-[300px] md:rounded-full"
           ></div>
 
-          <div className="w-[50%]">
+          <div className="md:w-[50%] my-2">
             <p className="text-3xl mb-5">
               Stay Alert New Products coming soon!
             </p>
@@ -62,10 +62,10 @@ const NewItem = () => {
       )}
 
       {data?.title && (
-        <div className="flex flex-col">
+        <div className="flex flex-col my-2">
           <h2 className="text-2xl text-center">Checkout Our Newest Product!</h2>
-          <div className="flex items-center">
-            <div className="w-[50%] h-[400px]">
+          <div className="flex items-center flex-col md:flex-row ">
+            <div className="md:w-[50%] md:h-[400px]">
               <img
                 src={`../src/images/productImages/${data.image}`}
                 alt=""
@@ -73,9 +73,9 @@ const NewItem = () => {
               />
             </div>
 
-            <div className="w-[50%] p-3">
+            <div className="md:w-[50%] p-3">
               <h1 className="text-center text-3xl mb-5">{data.title}</h1>
-              <div className="flex items-center justify-evenly text-xl mb-5">
+              <div className="flex flex-col md:flex-row items-center justify-evenly text-xl mb-5">
                 <p className="">
                   <span className="font-bold">Category : </span>
                   {data.category}
