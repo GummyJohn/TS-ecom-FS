@@ -36,9 +36,9 @@ const DeleteConfirmation = (
 
   return (
     <>
-      <div className='fixed h-full w-full bg-black bg-opacity-80 z-50 top-0 flex justify-center items-center '>
+      <div className='fixed h-full w-full bg-black bg-opacity-80 z-50 top-0 flex justify-center items-center'>
 
-        <div className='relative bg-white flex justify-center items-center w-[500px] p-5 rounded-3xl'>
+        <div className='relative bg-white flex justify-center items-center md:w-[500px] p-5 rounded-3xl w-[90%] auto'>
           <button 
             onClick={closeAndReload}
             className='absolute top-5 right-5 border p-3 rounded-full bg-black text-white hover:bg-red-500'
@@ -52,7 +52,7 @@ const DeleteConfirmation = (
               <p className='text-2xl w-[90%] m-auto my-2'>{title} ?</p>
             </div>
 
-            <div className='h-[500px] w-full m-auto my-4'>
+            <div className='md:h-[500px] w-full m-auto my-4'>
               <img src={img.includes('http') ? img : `../../src/images/productImages/${img}`} 
                 alt="" 
                 className='w-full h-full'

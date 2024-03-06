@@ -61,6 +61,7 @@ const Home = () => {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    transition: 'ease-in-out 1.2s',
   }
 
   function changeShowcase(sign: string){
@@ -115,7 +116,7 @@ const Home = () => {
         <div className='my-10 text-center flex justify-center items-center'>
           <div 
             style={{boxShadow: '0px 0px 50px 10px'}}
-            className='border p-4 w-[90%] rounded-3xl shadow-2xl shadow-black'
+            className='border p-4 w-[90%] rounded-3xl shadow-2xl shadow-black' 
           >
             <p className='text-3xl mb-7'>Welcome Guest to ShopNest!</p>
             <p className='text-xl w-[80%] m-auto text-center mb-7'>
@@ -138,7 +139,7 @@ const Home = () => {
         role !== null && (
           <div 
             style={{boxShadow: '0px 0px 50px 10px'}}
-            className='h-[40vh] m-auto flex flex-col justify-center items-center mt-5 p-4 w-[90%] rounded-3xl shadow-black '
+            className='m-auto flex flex-col justify-center items-center my-5 p-4 w-[90%] rounded-3xl shadow-black '
           >
             <div className='w-full'>
               <h1 className='text-3xl text-center'>Welcome User : {role.user}</h1> 

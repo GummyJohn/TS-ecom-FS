@@ -29,13 +29,13 @@ const Cart = ({ setShowCart, cart, setCart }: CartProps) => {
   }
 
   return (
-    <div className="absolute h-full w-full z-50 bg-black h-screen top-0 bg-opacity-60">
+    <div className="absolute h-full w-full z-50 bg-black h-screen top-0 bg-opacity-60 ">
       <motion.div
         initial={{ x: "+100vw" }}
         animate={{ x: 0 }}
         transition={{ duration: 0.5 }}
         exit={{ x: "+100vw"}}
-        className="h-screen md:w-[60%]  lg:w-[55vh] xl:w-[50vh] bg-white fixed z-40 right-0 p-3 fixed top-0"
+        className="h-screen md:w-[60%] lg:w-[55vh] xl:w-[50vh] bg-white fixed z-50 right-0 p-3 fixed top-0"
       >
         <div className="">
           <button
@@ -62,6 +62,7 @@ const Cart = ({ setShowCart, cart, setCart }: CartProps) => {
                     list={cart}
                     setCart={setCart}
                     cartItem={item}
+                    setShowCart={setShowCart}
                   />
                 );
               })}
@@ -69,7 +70,7 @@ const Cart = ({ setShowCart, cart, setCart }: CartProps) => {
 
           <button 
             onClick={checkout}
-            className="py-2 px-4 rounded-2xl bg-black text-white mt-5 md:mb-5"
+            className="py-2 px-4 rounded-2xl bg-black text-white mt-5 mb-5"
           >
             Checkout
           </button>

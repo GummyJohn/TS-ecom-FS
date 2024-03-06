@@ -16,7 +16,7 @@ const SignOrRegisterPage = () => {
   return (
     <div
       style={bgStyle}
-      className="h-full md:h-[130vh] lg:full 2xl:h-[90vh] relative 2xl:rounded-full 2xl:border-2 border-blue-500  mt-16"
+      className="h-[130vh] lg:h-screen relative 2xl:rounded-full 2xl:border-2 border-blue-500  mt-16"
     >
       <div className="absolute bg-black h-full w-full opacity-70 z-10 2xl:rounded-full"></div>
 

@@ -11,7 +11,7 @@ router.put('/', async (req, res) => {
   
   users[userIndex] = {
     ...users[userIndex],
-    spent: spent
+    spent: users[userIndex].spent + spent
   }
 
   await fsPromise.writeFile(

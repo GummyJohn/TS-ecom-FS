@@ -51,13 +51,13 @@ const AdminPage = () => {
      
       <div
         style={{boxShadow: '0px 0px 50px 10px'}} 
-        className='w-[90%] mt-5 m-auto h-[40vh] border flex justify-center items-center rounded-2xl'
+        className='w-[90%] mt-5 m-auto border flex justify-center items-center rounded-2xl'
       >
         <div className='flex w-full flex-col px-5'>
-          <h1 className='text-3xl mb-10 text-center'>Welcome Admin </h1>
-          <div className='flex items-center justify-evenly'>
+          <h1 className='text-3xl mb-10 text-center pt-3'>Welcome Admin </h1>
+          <div className='flex flex-col md:flex-row items-center justify-evenly'>
             <div 
-              className='border text-center py-3 px-5 rounded-2xl w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'
+              className='w-full my-2 border text-center py-3 px-5 rounded-2xl md:w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'
             >
               <div>
                 <h1 className='text-xl'>Accounts</h1>
@@ -65,21 +65,22 @@ const AdminPage = () => {
               </div>
               <MdManageAccounts className='text-5xl'/>
             </div>
-            <div className='border text-center py-3 px-5 rounded-2xl w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'>
+            <div className='w-full my-2 border text-center py-3 px-5 rounded-2xl md:w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'>
               <div>
                 <h1 className='text-xl'>Total Products</h1>
                 <h1> {adminInfo?.amountOfProducts}</h1>
               </div>
               <SiTemporal className='text-5xl'/>
             </div>
-            <div className='border text-center py-3 px-5 rounded-2xl w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'>
+            <div className='w-full my-2 border text-center py-3 px-5 rounded-2xl md:w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'>
               <div>
                 <h1 className='text-xl'>Total Sales</h1>
                 <h1>$ {adminInfo?.totalSales}</h1>
               </div>
               <FcSalesPerformance className='text-5xl'/>
             </div>
-            <div className='border text-center py-3 px-5 rounded-2xl w-[20%] h-[100px] flex  items-center justify-evenly bg-purple-500 text-white'>      
+
+            <div className='w-full my-2 border text-center py-3 px-5 rounded-2xl md:w-[20%] h-[100px] flex items-center justify-evenly bg-purple-500 text-white'>      
               <div>
                 <h1 className='text-xl'>Top Customer</h1>
                 <h1>{adminInfo?.topCustomer}</h1> 
@@ -90,12 +91,13 @@ const AdminPage = () => {
           </div>
 
           <div className='w-[60%] my-10 text-center m-auto'>
-            <div className='flex items-center m-auto justify-center'>
+            <h1 className='text-2xl mb-5'>Admins Exculsive Tools</h1>
+            <div className='flex flex-col md:flex-row items-center m-auto justify-center'>
               <motion.div
                 initial={{ y: "-100vw" }}
                 animate={{ y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-center mr-5"
+                className="text-center mr-5 my-2"
               >
                 <button
                   onClick={() => navigate("/addproduct")}
@@ -116,7 +118,7 @@ const AdminPage = () => {
                 initial={{ y: "-100vw" }}
                 animate={{ y: 0 }}
                 transition={{duration: 1, delay: .1 }}
-                className="text-center mr-5"
+                className="text-center mr-5 my-2"
               >
                 <button
                   onClick={() => navigate("/browse")}
@@ -137,7 +139,7 @@ const AdminPage = () => {
                 initial={{ y: "-100vw" }}
                 animate={{ y: 0 }}
                 transition={{ delay: .2, duration: 1 }}
-                className="text-center mr-5"
+                className="text-center mr-5 my-2"
               >
                 <button
                   onClick={() => navigate("/browse")}
