@@ -31,7 +31,7 @@ const ProductPage = ({addCart} : ProductPageProps) => {
         }
       }catch(err){
         if(err instanceof Error){
-          console.log(err.message)
+          setError(true)
         }
       }
     }
@@ -50,12 +50,12 @@ const ProductPage = ({addCart} : ProductPageProps) => {
       )}
       {
         loading ? <Loading/> : (
-          <div className='mt-16'>
+          <div className='mt-16 flex justify-center items-center h-screen border'>
             <div className='flex flex-col md:flex-row items-center justify-center py-5 px-8 max-w-[1800px] m-auto'>
               <div className='md:w-[50%] rounded-2xl h-full'>
                 <img 
                   src={
-                    data?.image.includes('fakestore') ? data.image:  
+                    data?.image.includes('http') ? data.image:  
                     `../src/images/productImages/${data?.image}`
                   }                   
                   alt="product" 

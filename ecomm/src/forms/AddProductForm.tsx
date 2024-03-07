@@ -29,13 +29,14 @@ const AddProductForm = () => {
       setImageFile(file)
     }
   }
+
   const [productInfo, setProductInfo] = useState<ProductInfo>({
     title: '',
     price: '',
     description: '',
     category: '',
   });
-  
+
   function changeProductValue(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ){
@@ -58,7 +59,7 @@ const AddProductForm = () => {
     formData.append('price', productInfo.price);
     formData.append('description', productInfo.description);
     formData.append('category', productInfo.category);
-    if (imageFile) {
+    if (imageFile) { 
       formData.append('file', imageFile);
     }
 
@@ -72,6 +73,7 @@ const AddProductForm = () => {
 
       if(response.status === 200){
         navigate(`/products/${productInfo.category}`)
+        window.location.reload();
       }
     }catch(err){
       if(err instanceof Error){
@@ -175,8 +177,8 @@ const AddProductForm = () => {
                 <option value="">Select a Category</option>
                 <option value="jewelry">Jewelry</option>
                 <option value="technology">Technology</option>
-                <option value="men's clothing">Men's Clothes</option>
-                <option value="women's clothing">Women's Clothes</option>
+                <option value="men-clothes">Men's Clothes</option>
+                <option value="women-clothes">Women's Clothes</option>
               </select>
             </div>
           </div>

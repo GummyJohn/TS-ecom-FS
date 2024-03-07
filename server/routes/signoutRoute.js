@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const fsPromise = require('fs').promises;
 
-
 router.put('/', async (req, res) => {
   const { user, spent } = req.body.role;
 

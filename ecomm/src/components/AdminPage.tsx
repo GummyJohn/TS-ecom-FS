@@ -1,6 +1,5 @@
 import { useEffect, useState, useLayoutEffect }from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RoleContext } from '../roleContext';
 import { motion } from 'framer-motion';
 import { MdManageAccounts, MdOutlineSystemUpdateAlt, MdDelete } from "react-icons/md";
 import { SiTemporal } from "react-icons/si";
@@ -47,11 +46,11 @@ const AdminPage = () => {
   }, [])
 
   return (
-    <div className='mt-36'>
+    <div className='mt-36 m-auto max-w-[1800px]'>
      
       <div
         style={{boxShadow: '0px 0px 50px 10px'}} 
-        className='w-[90%] mt-5 m-auto border flex justify-center items-center rounded-2xl'
+        className='w-[90%] mt-5 m-auto border flex justify-center items-center rounded-2xl '
       >
         <div className='flex w-full flex-col px-5'>
           <h1 className='text-3xl mb-10 text-center pt-3'>Welcome Admin </h1>
@@ -162,7 +161,9 @@ const AdminPage = () => {
       </div>
 
 
-      <div className='mt-10 py-2 px-5'>
+      <div 
+        className='m-auto flex flex-col justify-center items-center my-10 p-4 w-[90%] rounded-3xl'
+      >
         <NewItem/>
       </div>
     </div>

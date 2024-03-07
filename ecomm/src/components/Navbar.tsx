@@ -6,6 +6,7 @@ import { Products } from "../ts/interface";
 import { RoleContext } from "../roleContext";
 import HamburgerMenu from "./HamburgerMenu";
 import Cart from "./Cart";
+import SignOutConfirm from './SignOutConfirm'
 
 interface NavbarProp {
   length: number;
@@ -17,8 +18,9 @@ interface NavbarProp {
 
 const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
   const navigate = useNavigate();
-  const { role, handleSignout, authenticate } = useContext(RoleContext);
+  const { role, authenticate } = useContext(RoleContext);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [signOutConfirm, setSignOutConfirm] = useState<boolean>(false)
 
   function directHome() {
     if (role?.role === 3000) {
@@ -34,6 +36,8 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
 
   return (
     <>
+      {signOutConfirm && <SignOutConfirm setSignOutConfirm={setSignOutConfirm}/>}
+
       <HamburgerMenu
         length={length}
         already={already}
@@ -79,7 +83,8 @@ const Navbar = ({ length, already, added, cart, setCart }: NavbarProp) => {
 
             {role && (
               <button
-                onClick={() => handleSignout(navigate, "/")}
+                // onClick={() => handleSignout(navigate, "/")}
+                onClick={() => setSignOutConfirm(true)}
                 className="mx-3 cursor-pointer hover:underline hover:text-blue-500"
               >
                 Sign Out
