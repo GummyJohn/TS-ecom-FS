@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState} from "react";
 import { Products } from "../ts/interface";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { RoleContext } from "../roleContext";
+import { MdErrorOutline } from "react-icons/md";
 import Loading from "./Loading";
 import Card from "./Card";
 import axios from "axios";
@@ -53,6 +53,7 @@ const Search = ({ addCart }: SearchProps) => {
       return item;
     }
   });
+
 
   useEffect(() => {
     async function getInventory() {
@@ -130,7 +131,7 @@ const Search = ({ addCart }: SearchProps) => {
           </div>
         </motion.div>
       </div>
-      <div>
+      <div className="m-auto max-w-[1800px]">
         <div 
           className="flex w-full md:justify-evenly items-center mt-10     overflow-auto"
         >
@@ -142,7 +143,7 @@ const Search = ({ addCart }: SearchProps) => {
           >
             <button
               style={womenClothesBgImg}
-              onClick={() => navigate("/products/Women's Clothes")}
+              onClick={() => navigate("/products/women-clothes")}
               className="w-[150px] h-[150px] rounded-[100%] hover: shadow-2xl hover:shadow-black"
             ></button>
             <p>Women's Clothes</p>
@@ -156,7 +157,7 @@ const Search = ({ addCart }: SearchProps) => {
           >
             <button
               style={menClothesBgImg}
-              onClick={() => navigate("/products/Men's Clothes")}
+              onClick={() => navigate("/products/men-clothes")}
               className="w-[150px] h-[150px] rounded-[100%] hover: shadow-2xl hover:shadow-black"
             ></button>
             <p>Men's Clothes</p>
@@ -184,7 +185,7 @@ const Search = ({ addCart }: SearchProps) => {
           >
             <button
               style={jewelryBgImg}
-              onClick={() => navigate("/products/Jewerly")}
+              onClick={() => navigate("/products/jewelry")}
               className="w-[150px] h-[150px] rounded-[100%] hover: shadow-2xl hover:shadow-black"
             ></button>
             <p>Jewelry</p>
@@ -192,11 +193,13 @@ const Search = ({ addCart }: SearchProps) => {
         </div>
 
         {error && (
-          <p className="text-red-500 text-6xl text-center mt-10">
-            Sorry! Network Error
-          </p>
-        )}
-
+            <div className='mt-36 text-center text-3xl text-red-500'>
+              <p>Sorry Network Error</p>
+              <p>Refresh the Page!</p>
+              <MdErrorOutline className='text-9xl m-auto'/>
+            </div>
+          )
+        }
         {loading ? (
           <Loading />
         ) : (

@@ -3,11 +3,11 @@ const productsDB = {
   setProducts: function(data){ this.products = data }
 }
 
+const newItems = require('../db/newestItem.json');
 const express = require('express');
 const upload = require('../middlewares/multer');
 const fsPromise = require('fs').promises;
 const router = express.Router();
-
 
 router.post('/add', upload.single('file'), async(req, res) => {
   const {title, price, description, category} = req.body;
@@ -19,9 +19,11 @@ router.post('/add', upload.single('file'), async(req, res) => {
   )
 
   if(aleadyInInventory) return res.sendStatus(404)
-  
+    
+  const latestProductID = productsDB.products[productsDB.products.length - 1].id;
+
   const newProduct = {
-    id: productsDB.products.length + 1,
+    id: parseInt(latestProductID) + 1,
     title,
     price : parseInt(price),
     description,
@@ -46,11 +48,23 @@ router.post('/add', upload.single('file'), async(req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
   const { id } = req.params;
-  const filtered = productsDB.products.filter((product) => product.id !== parseInt(id));
-  
-  productsDB.setProducts(filtered);
+  const parsedID = parseInt(id);
 
-  if(newItem.id === parseInt(id)){
+  const findProduct = productsDB.products.find((item)=> item.id === parsedID)
+  const { image } = findProduct
+
+  const filtered = productsDB.products.filter((product) => product.id !== parsedID);
+
+  await fsPromise.unlink(
+    `../ecomm/src/images/productImages/${image}`,
+    (err) => {
+      if(err){
+        console.log(`error removing file`)
+      }
+    }
+  )
+  
+  if(newItems.id === parsedID){
     await fsPromise.writeFile(
       '../server/db/newestItem.json',
       JSON.stringify({})
@@ -59,8 +73,9 @@ router.delete('/delete/:id', async (req, res) => {
   
   await fsPromise.writeFile(
     '../server/db/dbProducts.json',
-    JSON.stringify(productsDB.products)
+    JSON.stringify(filtered)
   )
+
 
   res.sendStatus(200)
 })

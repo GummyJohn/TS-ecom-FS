@@ -66,7 +66,7 @@ function App() {
         />
 
         <Route
-          path="/products/men's Clothes"
+          path="/products/men-clothes"
           element={
             <CaterogryTemplate
               imgSrc="mensclothes"
@@ -78,7 +78,7 @@ function App() {
         />
 
         <Route
-          path="/products/women's Clothes"
+          path="/products/women-clothes"
           element={
             <CaterogryTemplate
               imgSrc="womenclothes"
@@ -90,7 +90,7 @@ function App() {
         />
 
         <Route
-          path="/products/jewerly"
+          path="/products/jewelry"
           element={
             <CaterogryTemplate
               imgSrc="jewelry"

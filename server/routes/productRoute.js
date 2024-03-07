@@ -1,5 +1,5 @@
 const products = require('../db/dbProducts.json');
-const newItem = require('../db/newestItem.json');
+const newItems = require('../db/newestItem.json');
 const middlewares = require('../middlewares/userAuth')
 const express = require('express');
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get('/all', (req, res) => {
 })
 
 router.get('/newItem', (req, res) => {
-  res.json(newItem)
+  res.json(newItems)
 })
 
 router.get('/item/:id', middlewares.authAdmin, (req, res) => {
@@ -35,19 +35,19 @@ router.get('/technology', (req, res) => {
 })
 
 router.get('/jewelry', (req, res) => {
-  const filtered = products.filter((product) => product.category === 'jewelery')
+  const filtered = products.filter((product) => product.category === 'jewelry')
 
   res.json(filtered);
 })
 
 router.get("/men-clothing", (req, res) => {
-  const filtered = products.filter((product) => product.category === "men's clothing")
+  const filtered = products.filter((product) => product.category === "men-clothes")
 
   res.json(filtered);
 })
 
 router.get("/women-clothing", (req, res) => {
-  const filtered = products.filter((product) => product.category === "women's clothing")
+  const filtered = products.filter((product) => product.category === "women-clothes")
 
   res.json(filtered);
 })

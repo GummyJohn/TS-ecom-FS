@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { RoleContext } from '../roleContext'
 import { useParams } from 'react-router-dom'
+import { MdErrorOutline } from "react-icons/md";
 import { Products } from '../ts/interface'
 import Loading from './Loading'
 import axios from 'axios'
@@ -15,8 +16,8 @@ const ProductPage = ({addCart} : ProductPageProps) => {
   const { role } = useContext(RoleContext)
   const { id } = useParams();
   const [data, setData] = useState<Products>();
-  const [loading, setLoading] = useState<boolean>();
-  const [error, setError] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [selectSize, setSelectSize] = useState<string>('')
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const ProductPage = ({addCart} : ProductPageProps) => {
         }
       }catch(err){
         if(err instanceof Error){
-          console.log(err.message)
+          setError(true)
         }
       }
     }
@@ -40,14 +41,21 @@ const ProductPage = ({addCart} : ProductPageProps) => {
 
   return (
     <div>
+      {error && (
+        <div className='mt-36 text-center text-3xl text-red-500'>
+          <p>Sorry Network Error</p>
+          <p>Refresh the Page!</p>
+          <MdErrorOutline className='text-9xl m-auto'/>
+        </div>
+      )}
       {
         loading ? <Loading/> : (
-          <div className='mt-16'>
+          <div className='mt-16 flex justify-center items-center h-screen border'>
             <div className='flex flex-col md:flex-row items-center justify-center py-5 px-8 max-w-[1800px] m-auto'>
               <div className='md:w-[50%] rounded-2xl h-full'>
                 <img 
                   src={
-                    data?.image.includes('fakestore') ? data.image:  
+                    data?.image.includes('http') ? data.image:  
                     `../src/images/productImages/${data?.image}`
                   }                   
                   alt="product" 
@@ -81,7 +89,7 @@ const ProductPage = ({addCart} : ProductPageProps) => {
                   {data?.description}
                 </p>
                     
-                {role?.role === 2000 || role === null && (
+                {(role?.role === 2000 || role === null) && (
                   <button 
                     onClick={()=> addCart({...data, size: selectSize})}
                     className="border py-2 px-4 rounded-2xl bg-blue-500 text-white hover:scale-110"

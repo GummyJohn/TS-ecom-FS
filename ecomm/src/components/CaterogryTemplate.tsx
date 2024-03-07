@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { Products } from "../ts/interface";
+import { MdErrorOutline } from "react-icons/md";
 import Card from "./Card";
 import Loading from "./Loading";
 import axios from "axios";
@@ -27,15 +28,16 @@ const CaterogryTemplate = ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
   };
-
+  
+  
   useEffect(() => {
-    async function data() {
+    async function fetchData() {
       try {
         setLoading(true);
         const response = await axios.get(
           `http://localhost:4001/products/${category}`
         );
-
+  
         if (response.status === 200) {
           setData(response.data);
           setLoading(false);
@@ -45,8 +47,7 @@ const CaterogryTemplate = ({
         setLoading(false);
       }
     }
-
-    data();
+    fetchData();
   }, []);
 
   return (
@@ -60,9 +61,11 @@ const CaterogryTemplate = ({
       </div>
       <div>
         {error && (
-          <p className="text-red-500 text-6xl text-center mt-10">
-            Sorry! Network Error
-          </p>
+          <div className='mt-36 text-center text-3xl text-red-500'>
+            <p>Sorry Network Error</p>
+            <p>Refresh the Page!</p>
+            <MdErrorOutline className='text-9xl m-auto'/>
+          </div>
         )}
 
         {loading ? (

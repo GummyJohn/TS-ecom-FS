@@ -36,12 +36,13 @@ const Card = ({id, title, price, img, onClick, category} : CardProps) => {
             id={id}
             title={title} img={img} 
             setConfirmDelete={setConfirmDelete}
+            category={category}
           />
         )
       }
 
       <div 
-        className='flex justify-between md:w-[450px] md:h-[250px] my-5 p-2 rounded-2xl relative'
+        className='flex justify-between md:w-[450px] md:h-[250px] m-5 p-2 rounded-2xl relative'
       >
         <div 
           onClick={() => navigate(`/product/${id}`)}
